@@ -1,4 +1,4 @@
-package handlers
+package controllers
 
 import (
 	"errors"
@@ -7,7 +7,15 @@ import (
 	"github.com/maykonlf/semver-cli/internal/enum/types"
 )
 
-func IncreaseCommandHandler(version *entities.Version, args ...string) (*entities.Version, error) {
+var (
+	increaseCommandMap = map[types.Phase]func(version *entities.Version) *entities.Version{
+		types.Alpha:            IncreaseVersionAlpha,
+		types.Beta:             IncreaseVersionBeta,
+		types.ReleaseCandidate: IncreaseReleaseCandidate,
+	}
+)
+
+func IncreaseCommandController(version *entities.Version, args ...string) (*entities.Version, error) {
 	if len(args) < 1 {
 		return nil, errors.New("insufficient args for increase operation. expected 1, given 0")
 	}
@@ -17,7 +25,8 @@ func IncreaseCommandHandler(version *entities.Version, args ...string) (*entitie
 		return nil, fmt.Errorf("unknown version increase type '%s'", args[0])
 	}
 
-	return version, nil
+	increaseFunction := increaseCommandMap[phase]
+	return increaseFunction(version), nil
 }
 
 func IncreaseVersionAlpha(version *entities.Version) *entities.Version {

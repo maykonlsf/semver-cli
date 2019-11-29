@@ -1,4 +1,4 @@
-package handlers
+package controllers
 
 import (
 	"github.com/maykonlf/semver-cli/internal/entities"

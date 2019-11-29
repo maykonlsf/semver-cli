@@ -9,11 +9,11 @@ import (
 )
 
 type Version struct {
-	major       uint
-	minor       uint
-	patch       uint
-	versionType types.Phase
-	patchNumber uint
+	Major       uint
+	Minor       uint
+	Patch       uint
+	Phase       types.Phase
+	PatchNumber uint
 }
 
 func NewVersion(v string) (*Version, error) {
@@ -23,40 +23,20 @@ func NewVersion(v string) (*Version, error) {
 	}
 
 	parts := tagPattern.FindStringSubmatch(v)
-	version := &Version{}
-	version.Major(str.ParseUIntOrDefault(parts[2])).Minor(str.ParseUIntOrDefault(parts[3])).PatchVersion(str.ParseUIntOrDefault(parts[4])).Phase(types.ValueOf(parts[7])).PatchNumber(str.ParseUIntOrDefault(parts[8]))
+	version := &Version{
+		Major: str.ParseUIntOrDefault(parts[2]),
+		Minor: str.ParseUIntOrDefault(parts[3]),
+		Patch: str.ParseUIntOrDefault(parts[4]),
+		Phase: types.ValueOf(parts[7]),
+		PatchNumber: str.ParseUIntOrDefault(parts[8]),
+	}
 	return version, nil
 }
 
-func (v *Version) Major(n uint) *Version {
-	v.major = n
-	return v
-}
-
-func (v *Version) Minor(n uint) *Version {
-	v.minor = n
-	return v
-}
-
-func (v *Version) PatchVersion(patch uint) *Version {
-	v.patch = patch
-	return v
-}
-
-func (v *Version) Phase(p types.Phase) *Version {
-	v.versionType = p
-	return v
-}
-
-func (v *Version) PatchNumber(n uint) *Version {
-	v.patchNumber = n
-	return v
-}
-
 func (v *Version) String() string {
-	if v.versionType.IsRelease() {
-		return fmt.Sprintf("%d.%d.%d", v.major, v.minor, v.patch)
+	if v.Phase.IsRelease() {
+		return fmt.Sprintf("%d.%d.%d", v.Major, v.Minor, v.Patch)
 	} else {
-		return fmt.Sprintf("%d.%d.%d-%s.%d", v.major, v.minor, v.patch, v.versionType, v.patchNumber)
+		return fmt.Sprintf("%d.%d.%d-%s.%d", v.Major, v.Minor, v.Patch, v.Phase, v.PatchNumber)
 	}
 }

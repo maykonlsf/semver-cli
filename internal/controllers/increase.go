@@ -8,10 +8,11 @@ import (
 )
 
 var (
-	increaseCommandMap = map[types.Phase]func(version *entities.Version) *entities.Version{
-		types.Alpha:            IncreaseVersionAlpha,
-		types.Beta:             IncreaseVersionBeta,
-		types.ReleaseCandidate: IncreaseReleaseCandidate,
+	increaseCommandMap = map[string]func(version *entities.Version) *entities.Version{
+		"alpha":   IncreaseVersionAlpha,
+		"beta":    IncreaseVersionBeta,
+		"rc":      IncreaseReleaseCandidate,
+		"release": IncreaseRelease,
 	}
 )
 
@@ -20,12 +21,10 @@ func IncreaseCommandController(version *entities.Version, args ...string) (*enti
 		return nil, errors.New("insufficient args for increase operation. expected 1, given 0")
 	}
 
-	phase := types.ValueOf(args[0])
-	if phase == types.Unknown {
+	increaseFunction := increaseCommandMap[args[0]]
+	if increaseFunction == nil {
 		return nil, fmt.Errorf("unknown version increase type '%s'", args[0])
 	}
-
-	increaseFunction := increaseCommandMap[phase]
 	return increaseFunction(version), nil
 }
 
@@ -72,5 +71,14 @@ func IncreaseReleaseCandidate(version *entities.Version) *entities.Version {
 
 	version.Phase = types.ReleaseCandidate
 
+	return version
+}
+
+func IncreaseRelease(version *entities.Version) *entities.Version {
+	if version.Phase == types.Release {
+		version.Patch += 1
+	}
+
+	version.Phase = types.Release
 	return version
 }

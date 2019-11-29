@@ -113,3 +113,39 @@ func TestIncreaseReleaseCandidate(t *testing.T) {
 		})
 	})
 }
+
+func TestIncreaseRelease(t *testing.T) {
+	Convey("Given an previous version and increase to the next release version", t, func() {
+		Convey("When previous version is alpha", func() {
+			version, _ := entities.NewVersion("1.0.0-alpha.3")
+			Convey("Then should promote version to final release", func() {
+				newVersion := IncreaseRelease(version)
+				So(newVersion.String(), ShouldEqual, "1.0.0")
+			})
+		})
+
+		Convey("When previous version is beta", func() {
+			version, _ := entities.NewVersion("1.0.0-beta.2")
+			Convey("Then should promote version to final release", func() {
+				newVersion := IncreaseRelease(version)
+				So(newVersion.String(), ShouldEqual, "1.0.0")
+			})
+		})
+
+		Convey("When previous version is a release candidate", func() {
+			version, _ := entities.NewVersion("1.0.0-rc.2")
+			Convey("Then should promote version to final release", func() {
+				newVersion := IncreaseRelease(version)
+				So(newVersion.String(), ShouldEqual, "1.0.0")
+			})
+		})
+
+		Convey("When previous version is already a final release", func() {
+			version, _ := entities.NewVersion("1.0.3")
+			Convey("Then should increase patch version", func() {
+				newVersion := IncreaseRelease(version)
+				So(newVersion.String(), ShouldEqual, "1.0.4")
+			})
+		})
+	})
+}

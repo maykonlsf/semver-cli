@@ -3,7 +3,6 @@ package entities
 import (
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
-
 )
 
 func TestNewVersion(t *testing.T) {

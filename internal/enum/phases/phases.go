@@ -9,7 +9,7 @@ func (tagType Phase) String() string {
 }
 
 func (tagType Phase) IsRelease() bool {
-	return  tagType == Release
+	return tagType == Release
 }
 
 const (

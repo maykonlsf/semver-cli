@@ -8,9 +8,9 @@ import (
 
 var (
 	rootCmd = &cobra.Command{
-		Use:                        "semver",
-		Short:                      "Semantic version cli",
-		Long:                       "Semantic version tool helper to validate and increase versions semantically",
+		Use:   "semver",
+		Short: "Semantic version cli",
+		Long:  "Semantic version tool helper to validate and increase versions semantically",
 	}
 )
 

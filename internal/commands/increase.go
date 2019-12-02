@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"github.com/maykonlf/semver-cli/internal/entities"
 	"github.com/maykonlf/semver-cli/internal/controllers"
+	"github.com/maykonlf/semver-cli/internal/entities"
 )
 
 func IncreaseVersionCommand(versionStr string, phaseStr string) (*entities.Version, error) {

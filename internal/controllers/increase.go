@@ -30,11 +30,11 @@ func IncreaseCommandController(version *entities.Version, args ...string) (*enti
 
 func IncreaseVersionAlpha(version *entities.Version) *entities.Version {
 	if version.Phase == phases.Alpha {
-		version.PatchNumber += 1
+		version.PatchNumber++
 		return version
 	}
 
-	version.Minor += 1
+	version.Minor++
 	version.Phase = phases.Alpha
 	version.PatchNumber = 1
 
@@ -43,12 +43,12 @@ func IncreaseVersionAlpha(version *entities.Version) *entities.Version {
 
 func IncreaseVersionBeta(version *entities.Version) *entities.Version {
 	if version.Phase == phases.Beta {
-		version.PatchNumber += 1
+		version.PatchNumber++
 		return version
 	}
 
 	if version.Phase != phases.Alpha {
-		version.Minor += 1
+		version.Minor++
 	}
 
 	version.Phase = phases.Beta
@@ -62,11 +62,11 @@ func IncreaseReleaseCandidate(version *entities.Version) *entities.Version {
 	}
 
 	if version.Phase == phases.ReleaseCandidate {
-		version.PatchNumber += 1
+		version.PatchNumber++
 	}
 
 	if version.Phase == phases.Release {
-		version.Minor += 1
+		version.Minor++
 	}
 
 	version.Phase = phases.ReleaseCandidate
@@ -76,7 +76,7 @@ func IncreaseReleaseCandidate(version *entities.Version) *entities.Version {
 
 func IncreaseRelease(version *entities.Version) *entities.Version {
 	if version.Phase == phases.Release {
-		version.Patch += 1
+		version.Patch++
 	}
 
 	version.Phase = phases.Release

@@ -1,4 +1,4 @@
-package types
+package phases
 
 import "strings"
 

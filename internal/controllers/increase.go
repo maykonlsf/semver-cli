@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/maykonlf/semver-cli/internal/entities"
-	"github.com/maykonlf/semver-cli/internal/enum/types"
+	"github.com/maykonlf/semver-cli/internal/enum/phases"
 )
 
 var (
@@ -29,56 +29,56 @@ func IncreaseCommandController(version *entities.Version, args ...string) (*enti
 }
 
 func IncreaseVersionAlpha(version *entities.Version) *entities.Version {
-	if version.Phase == types.Alpha {
+	if version.Phase == phases.Alpha {
 		version.PatchNumber += 1
 		return version
 	}
 
 	version.Minor += 1
-	version.Phase = types.Alpha
+	version.Phase = phases.Alpha
 	version.PatchNumber = 1
 
 	return version
 }
 
 func IncreaseVersionBeta(version *entities.Version) *entities.Version {
-	if version.Phase == types.Beta {
+	if version.Phase == phases.Beta {
 		version.PatchNumber += 1
 		return version
 	}
 
-	if version.Phase != types.Alpha {
+	if version.Phase != phases.Alpha {
 		version.Minor += 1
 	}
 
-	version.Phase = types.Beta
+	version.Phase = phases.Beta
 	version.PatchNumber = 1
 	return version
 }
 
 func IncreaseReleaseCandidate(version *entities.Version) *entities.Version {
-	if version.Phase == types.Alpha || version.Phase == types.Beta || version.Phase == types.Release {
+	if version.Phase == phases.Alpha || version.Phase == phases.Beta || version.Phase == phases.Release {
 		version.PatchNumber = 1
 	}
 
-	if version.Phase == types.ReleaseCandidate {
+	if version.Phase == phases.ReleaseCandidate {
 		version.PatchNumber += 1
 	}
 
-	if version.Phase == types.Release {
+	if version.Phase == phases.Release {
 		version.Minor += 1
 	}
 
-	version.Phase = types.ReleaseCandidate
+	version.Phase = phases.ReleaseCandidate
 
 	return version
 }
 
 func IncreaseRelease(version *entities.Version) *entities.Version {
-	if version.Phase == types.Release {
+	if version.Phase == phases.Release {
 		version.Patch += 1
 	}
 
-	version.Phase = types.Release
+	version.Phase = phases.Release
 	return version
 }

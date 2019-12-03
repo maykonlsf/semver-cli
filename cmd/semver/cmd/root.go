@@ -17,6 +17,7 @@ var (
 func init() {
 	rootCmd.AddCommand(validateCmd)
 	rootCmd.AddCommand(increaseCmd)
+	rootCmd.AddCommand(sortCmd)
 }
 
 func Execute() {

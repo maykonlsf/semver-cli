@@ -36,6 +36,7 @@ func IncreaseVersionAlpha(version *entities.Version) *entities.Version {
 
 	version.Minor++
 	version.Phase = phases.Alpha
+	version.Patch = 0
 	version.PatchNumber = 1
 
 	return version

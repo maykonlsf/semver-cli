@@ -1,4 +1,4 @@
-package types
+package phases
 
 import "strings"
 
@@ -9,7 +9,7 @@ func (tagType Phase) String() string {
 }
 
 func (tagType Phase) IsRelease() bool {
-	return  tagType == Release
+	return tagType == Release
 }
 
 const (
@@ -42,4 +42,14 @@ func ValueOf(value string) Phase {
 
 func IsEqual(value string, valid string) bool {
 	return strings.EqualFold(value, valid)
+}
+
+func IndexOf(value Phase) int {
+	for i, v := range Values() {
+		if v == value {
+			return i
+		}
+	}
+
+	return -1
 }

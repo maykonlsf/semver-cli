@@ -1,23 +1,33 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"github.com/maykonlf/semver-cli/internal/entities"
+	"github.com/maykonlf/semver-cli/internal/commands"
+	"github.com/spf13/cobra"
+	"os"
 )
 
-func main() {
-	versionStr := flag.String("v", "", "version which next version should be based on")
-	flag.Parse()
-
-	commands := flag.Args()
-	fmt.Println(commands)
-
-	version, err := entities.NewVersion(*versionStr)
-	if err != nil {
-		fmt.Println(err)
-		return
+var (
+	rootCmd = &cobra.Command{
+		Use:   "semver",
+		Short: "Semantic version cli",
+		Long:  "Semantic version tool helper to validate and increase versions semantically",
 	}
+)
 
-	fmt.Println(version.String())
+func init() {
+	rootCmd.AddCommand(commands.NewValidateCommand().Cmd())
+	rootCmd.AddCommand(commands.NewIncreaseCommand().Cmd())
+	rootCmd.AddCommand(commands.NewSortCommand().Cmd())
+}
+
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+func main() {
+	Execute()
 }

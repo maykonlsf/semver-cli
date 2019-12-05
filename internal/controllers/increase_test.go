@@ -12,7 +12,7 @@ func TestIncreaseVersionAlpha(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-alpha.1")
 			Convey("Then should increase patch count version", func() {
 				newVersion := IncreaseVersionAlpha(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0-alpha.2")
+				So(newVersion.String(), ShouldEqual, "v1.0.0-alpha.2")
 			})
 		})
 
@@ -28,7 +28,7 @@ func TestIncreaseVersionAlpha(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-beta.3")
 			Convey("Then should increase minor and set patch number to 1", func() {
 				newVersion := IncreaseVersionAlpha(version)
-				So(newVersion.String(), ShouldEqual, "1.1.0-alpha.1")
+				So(newVersion.String(), ShouldEqual, "v1.1.0-alpha.1")
 			})
 		})
 
@@ -44,7 +44,7 @@ func TestIncreaseVersionAlpha(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-rc.1")
 			Convey("Then should increase patch count version", func() {
 				newVersion := IncreaseVersionAlpha(version)
-				So(newVersion.String(), ShouldEqual, "1.1.0-alpha.1")
+				So(newVersion.String(), ShouldEqual, "v1.1.0-alpha.1")
 			})
 		})
 
@@ -60,7 +60,7 @@ func TestIncreaseVersionAlpha(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0")
 			Convey("Then should increase patch count version", func() {
 				newVersion := IncreaseVersionAlpha(version)
-				So(newVersion.String(), ShouldEqual, "1.1.0-alpha.1")
+				So(newVersion.String(), ShouldEqual, "v1.1.0-alpha.1")
 			})
 		})
 
@@ -80,7 +80,7 @@ func TestIncreaseVersionBeta(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-alpha.7")
 			Convey("Then should promote to beta and set patch to number 1", func() {
 				newVersion := IncreaseVersionBeta(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0-beta.1")
+				So(newVersion.String(), ShouldEqual, "v1.0.0-beta.1")
 			})
 		})
 
@@ -96,7 +96,7 @@ func TestIncreaseVersionBeta(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-beta.2")
 			Convey("Then should increase patch number in 1", func() {
 				newVersion := IncreaseVersionBeta(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0-beta.3")
+				So(newVersion.String(), ShouldEqual, "v1.0.0-beta.3")
 			})
 		})
 
@@ -112,7 +112,7 @@ func TestIncreaseVersionBeta(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-rc.2")
 			Convey("Then should increase minor and set patch number to 1", func() {
 				newVersion := IncreaseVersionBeta(version)
-				So(newVersion.String(), ShouldEqual, "1.1.0-beta.1")
+				So(newVersion.String(), ShouldEqual, "v1.1.0-beta.1")
 			})
 		})
 
@@ -128,7 +128,7 @@ func TestIncreaseVersionBeta(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0")
 			Convey("Then should increase minor and set patch number to 1", func() {
 				newVersion := IncreaseVersionBeta(version)
-				So(newVersion.String(), ShouldEqual, "1.1.0-beta.1")
+				So(newVersion.String(), ShouldEqual, "v1.1.0-beta.1")
 			})
 		})
 
@@ -148,7 +148,7 @@ func TestIncreaseReleaseCandidate(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-alpha.3")
 			Convey("Then should promote patch to release candidate and set patch number to 1", func() {
 				newVersion := IncreaseReleaseCandidate(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0-rc.1")
+				So(newVersion.String(), ShouldEqual, "v1.0.0-rc.1")
 			})
 		})
 
@@ -164,7 +164,7 @@ func TestIncreaseReleaseCandidate(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-beta.7")
 			Convey("Then should promote patch to release candidate and set patch number to 1", func() {
 				newVersion := IncreaseReleaseCandidate(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0-rc.1")
+				So(newVersion.String(), ShouldEqual, "v1.0.0-rc.1")
 			})
 		})
 
@@ -180,7 +180,7 @@ func TestIncreaseReleaseCandidate(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-rc.7")
 			Convey("Then should increase patch number in 1", func() {
 				newVersion := IncreaseReleaseCandidate(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0-rc.8")
+				So(newVersion.String(), ShouldEqual, "v1.0.0-rc.8")
 			})
 		})
 
@@ -196,7 +196,7 @@ func TestIncreaseReleaseCandidate(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0")
 			Convey("Then should increase patch number in 1", func() {
 				newVersion := IncreaseReleaseCandidate(version)
-				So(newVersion.String(), ShouldEqual, "1.1.0-rc.1")
+				So(newVersion.String(), ShouldEqual, "v1.1.0-rc.1")
 			})
 		})
 
@@ -216,7 +216,7 @@ func TestIncreaseRelease(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-alpha.3")
 			Convey("Then should promote version to final release", func() {
 				newVersion := IncreaseRelease(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0")
+				So(newVersion.String(), ShouldEqual, "v1.0.0")
 			})
 		})
 
@@ -232,7 +232,7 @@ func TestIncreaseRelease(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-beta.2")
 			Convey("Then should promote version to final release", func() {
 				newVersion := IncreaseRelease(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0")
+				So(newVersion.String(), ShouldEqual, "v1.0.0")
 			})
 		})
 
@@ -248,7 +248,7 @@ func TestIncreaseRelease(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.0-rc.2")
 			Convey("Then should promote version to final release", func() {
 				newVersion := IncreaseRelease(version)
-				So(newVersion.String(), ShouldEqual, "1.0.0")
+				So(newVersion.String(), ShouldEqual, "v1.0.0")
 			})
 		})
 
@@ -264,7 +264,7 @@ func TestIncreaseRelease(t *testing.T) {
 			version, _ := entities.NewVersion("1.0.3")
 			Convey("Then should increase patch version", func() {
 				newVersion := IncreaseRelease(version)
-				So(newVersion.String(), ShouldEqual, "1.0.4")
+				So(newVersion.String(), ShouldEqual, "v1.0.4")
 			})
 		})
 

@@ -37,7 +37,7 @@ func NewVersion(v string) (*Version, error) {
 
 func (v *Version) String() string {
 	if v.Phase.IsRelease() {
-		return fmt.Sprintf("%s%d.%d.%d", v.Prefix, v.Major, v.Minor, v.Patch)
+		return fmt.Sprintf("v%d.%d.%d", v.Major, v.Minor, v.Patch)
 	}
-	return fmt.Sprintf("%s%d.%d.%d-%s.%d", v.Prefix, v.Major, v.Minor, v.Patch, v.Phase, v.PatchNumber)
+	return fmt.Sprintf("v%d.%d.%d-%s.%d", v.Major, v.Minor, v.Patch, v.Phase, v.PatchNumber)
 }

@@ -9,10 +9,10 @@ import (
 func TestIncreaseVersionAlpha(t *testing.T) {
 	Convey("Given an previous version and increase to next alpha", t, func() {
 		Convey("When previous version is already and alpha", func() {
-			version, _ := entities.NewVersion("1.0.0-alpha.1")
+			version, _ := entities.NewVersion("1.0.1-alpha.1")
 			Convey("Then should increase patch count version", func() {
 				newVersion := IncreaseVersionAlpha(version)
-				So(newVersion.String(), ShouldEqual, "v1.0.0-alpha.2")
+				So(newVersion.String(), ShouldEqual, "v1.0.1-alpha.2")
 			})
 		})
 
@@ -57,7 +57,7 @@ func TestIncreaseVersionAlpha(t *testing.T) {
 		})
 
 		Convey("When previous version is an release", func() {
-			version, _ := entities.NewVersion("1.0.0")
+			version, _ := entities.NewVersion("1.0.1")
 			Convey("Then should increase patch count version", func() {
 				newVersion := IncreaseVersionAlpha(version)
 				So(newVersion.String(), ShouldEqual, "v1.1.0-alpha.1")

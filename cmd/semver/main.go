@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/maykonlf/semver-cli/internal/commands"
+	"github.com/maykonlf/semver-cli/internal/entities"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"os"
 )
 
@@ -16,9 +18,22 @@ var (
 )
 
 func init() {
-	rootCmd.AddCommand(commands.NewValidateCommand().Cmd())
-	rootCmd.AddCommand(commands.NewIncreaseCommand().Cmd())
-	rootCmd.AddCommand(commands.NewSortCommand().Cmd())
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
+	viper.SetConfigName(".semver-ci")
+	_ = viper.ReadInConfig()
+
+	var version entities.Version
+	var branch entities.Branch
+
+	rootCmd.PersistentFlags().Var(&version, "version", "current version")
+	rootCmd.PersistentFlags().Var(&branch, "branch", "current branch name")
+	_ = viper.BindPFlag("version", rootCmd.PersistentFlags().Lookup("version"))
+	_ = viper.BindPFlag("branch", rootCmd.PersistentFlags().Lookup("branch"))
+	viper.SetDefault("version", "v0.0.0")
+	viper.SetDefault("branch", "develop")
+
+	rootCmd.AddCommand(commands.NewInitCommand().Cmd())
 }
 
 func Execute() {

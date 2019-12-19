@@ -18,14 +18,19 @@ var (
 
 func IncreaseCommandController(version *entities.Version, args ...string) (*entities.Version, error) {
 	if len(args) < 1 {
-		return nil, errors.New("insufficient args for increase operation. expected 1, given 0")
+		return nil, errors.New("insufficient args for increase operation. expected at least 1, given 0")
 	}
 
-	increaseFunction := increaseCommandMap[args[0]]
-	if increaseFunction == nil {
-		return nil, fmt.Errorf("unknown version increase type '%s'", args[0])
+	nextVersion := version
+	for _, v := range args {
+		increaseFunction := increaseCommandMap[v]
+		if increaseFunction == nil {
+			return nil, fmt.Errorf("unknown version increase type '%s'", args[0])
+		}
+		version = increaseFunction(nextVersion)
 	}
-	return increaseFunction(version), nil
+
+	return nextVersion, nil
 }
 
 func IncreaseVersionAlpha(version *entities.Version) *entities.Version {

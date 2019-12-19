@@ -8,7 +8,7 @@ import (
 )
 
 type IncreaseCommandI interface {
-	Handle(versionStr string, phaseStr string) (*entities.Version, error)
+	Handle(versionStr string, phases... string) (*entities.Version, error)
 	Execute(cmd *cobra.Command, args []string) error
 	Cmd() *cobra.Command
 	Init()
@@ -24,29 +24,28 @@ type IncreaseCommand struct {
 	cmd *cobra.Command
 }
 
-func (i *IncreaseCommand) Handle(versionStr string, phaseStr string) (*entities.Version, error) {
+func (i *IncreaseCommand) Handle(versionStr string, phases... string) (*entities.Version, error) {
 	version, err := entities.NewVersion(versionStr)
 	if err != nil {
 		return nil, err
 	}
 
-	v, e := controllers.IncreaseCommandController(version, phaseStr)
+	v, e := controllers.IncreaseCommandController(version, phases...)
 	return v, e
 }
 
 func (i *IncreaseCommand) Execute(cmd *cobra.Command, args []string) error {
-	if len(args) != 2 {
-		return fmt.Errorf("expected 2 args: semver increase <version> <phase>")
+	if len(args) < 2 {
+		return fmt.Errorf("expected at least 2 args: semver increase <version> <phase> [<phase 2> ...]")
 	}
 
-	newVersion, err := i.Handle(args[0], args[1])
+	newVersion, err := i.Handle(args[0], args[1:]...)
 	if err != nil {
 		return err
 	}
 
 	fmt.Println(newVersion)
 	return nil
-
 }
 
 func (i *IncreaseCommand) Cmd() *cobra.Command {
@@ -61,13 +60,4 @@ func (i *IncreaseCommand) Init() {
 		Example: "semver increase 1.0.0 alpha",
 		RunE:    i.Execute,
 	}
-}
-
-func IncreaseVersionCommand(versionStr string, phaseStr string) (*entities.Version, error) {
-	version, err := entities.NewVersion(versionStr)
-	if err != nil {
-		return nil, err
-	}
-
-	return controllers.IncreaseCommandController(version, phaseStr)
 }

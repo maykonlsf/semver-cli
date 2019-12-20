@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/maykonlf/semver-cli/internal/commands"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"os"
 )
 
@@ -16,9 +17,14 @@ var (
 )
 
 func init() {
-	rootCmd.AddCommand(commands.NewValidateCommand().Cmd())
-	rootCmd.AddCommand(commands.NewIncreaseCommand().Cmd())
-	rootCmd.AddCommand(commands.NewSortCommand().Cmd())
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
+	viper.SetConfigName(".semver")
+	_ = viper.ReadInConfig()
+
+	rootCmd.AddCommand(commands.NewInitCommand().Cmd())
+	rootCmd.AddCommand(commands.NewUpVersionCommand().Cmd())
+	rootCmd.AddCommand(commands.NewGetCommand().Cmd())
 }
 
 func Execute() {

@@ -26,4 +26,9 @@ cover:
 test: fmtcheck
 	@sh -c "go test ./... -timeout=2m -parallel=4"
 
+build:
+	CGO_ENABLED=0
+	GOOS=linux
+	@go build -o semver ./cmd/semver
+
 .PHONY: default test cover fmt fmtcheck lint

@@ -1,24 +1,29 @@
 package phases
 
-import "strings"
+import (
+	"strings"
+)
 
 type Phase string
 
-func (tagType Phase) String() string {
-	return string(tagType)
+func (p Phase) String() string {
+	if p == Release {
+		return ""
+	}
+	return string(p)
 }
 
-func (tagType Phase) IsRelease() bool {
-	return tagType == Release
+func (p Phase) IsRelease() bool {
+	return p == Release
 }
 
 const (
 	Alpha            Phase = "alpha"
 	Beta             Phase = "beta"
 	ReleaseCandidate Phase = "rc"
-	Release          Phase = ""
+	Release          Phase = "release"
 
-	Unknown Phase = "unknown"
+	Unknown Phase = ""
 )
 
 func Values() []Phase {
@@ -34,6 +39,8 @@ func ValueOf(value string) Phase {
 	for _, valid := range Values() {
 		if IsEqual(value, valid.String()) {
 			return valid
+		} else if value == "release" {
+			return Release
 		}
 	}
 

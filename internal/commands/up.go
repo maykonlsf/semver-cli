@@ -53,7 +53,7 @@ func (u *UpVersionCommand) Handle(release *entities.Version, phase string) error
 		viper.Set("rc", 0)
 	}
 
-	fmt.Print(release)
+	fmt.Println(release)
 
 	return viper.WriteConfig()
 }
@@ -65,7 +65,7 @@ func isAlreadyReleased() bool {
 func (u *UpVersionCommand) Execute(cmd *cobra.Command, args []string) error {
 	version, err := entities.NewVersion(viper.GetString("release"))
 	if err != nil {
-		return fmt.Errorf("invalid release version: %v", err)
+		return fmt.Errorf("failed to load release version: %v", err)
 	}
 
 	return u.Handle(version, args[0])

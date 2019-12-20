@@ -19,7 +19,7 @@ var (
 func init() {
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
-	viper.SetConfigName(".semver-ci")
+	viper.SetConfigName(".semver")
 	_ = viper.ReadInConfig()
 
 	rootCmd.AddCommand(commands.NewInitCommand().Cmd())

@@ -42,7 +42,7 @@ func (v *Version) Set(value string) error {
 	parts := tagPattern.FindStringSubmatch(value)
 	v.Prefix = parts[1]
 	v.Major = str.ParseUIntOrDefault(parts[2])
-	v.Minor =  str.ParseUIntOrDefault(parts[3])
+	v.Minor = str.ParseUIntOrDefault(parts[3])
 	v.Patch = str.ParseUIntOrDefault(parts[4])
 	v.Phase = phases.ValueOf(parts[7])
 	v.PatchNumber = str.ParseUIntOrDefault(parts[8])

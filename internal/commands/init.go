@@ -49,7 +49,7 @@ func (i *InitCommand) Init() {
 		RunE:    i.Execute,
 	}
 
-	i.cmd.PersistentFlags().Int("alpha", 0, "current alpha version number", )
+	i.cmd.PersistentFlags().Int("alpha", 0, "current alpha version number")
 	i.cmd.PersistentFlags().Int("beta", 0, "current beta version number")
 	i.cmd.PersistentFlags().Int("rc", 0, "current rc version number")
 	i.cmd.PersistentFlags().Var(&i.initialRelease, "release", "release version")

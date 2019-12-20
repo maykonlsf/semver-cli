@@ -84,12 +84,12 @@ func (u *UpVersionCommand) Cmd() *cobra.Command {
 
 func (u *UpVersionCommand) Init() {
 	u.cmd = &cobra.Command{
-		Use:     "up",
-		Short:   "Increase current version",
-		Long:    "Increase the current version based on the give phase (release, rc, beta, alpha)",
-		Example: "semver up alpha",
-		RunE:    u.Execute,
-		Args:    cobra.ExactValidArgs(1),
+		Use:       "up",
+		Short:     "Increase current version",
+		Long:      "Increase the current version based on the give phase (release, rc, beta, alpha)",
+		Example:   "semver up alpha",
+		RunE:      u.Execute,
+		Args:      cobra.ExactValidArgs(1),
 		ValidArgs: []string{"alpha", "beta", "rc", "release", "minor", "major"},
 	}
 }

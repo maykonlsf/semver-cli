@@ -51,13 +51,12 @@ func (g *GetCommand) Handle(version *entities.Version, phase string) error {
 
 func (g *GetCommand) Init() {
 	g.cmd = &cobra.Command{
-		Use:                        "get",
-		Short:                      "Returns the current version number",
-		Long:                       "Returns the current version number to the given phase",
-		Example:                    "semver get release",
-		ValidArgs:                 	[]string{"alpha", "beta", "rc", "release"},
-		Args:                       cobra.ExactValidArgs(1),
-		RunE:                       g.Execute,
+		Use:       "get",
+		Short:     "Returns the current version number",
+		Long:      "Returns the current version number to the given phase",
+		Example:   "semver get release",
+		ValidArgs: []string{"alpha", "beta", "rc", "release"},
+		Args:      cobra.ExactValidArgs(1),
+		RunE:      g.Execute,
 	}
 }
-

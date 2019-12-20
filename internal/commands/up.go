@@ -46,7 +46,14 @@ func (u *UpVersionCommand) Handle(release *entities.Version, phase string) error
 		viper.Set("release", release.String())
 	}
 
-	if phase == "minor" || phase == "release" {
+	if phase == "major" {
+		release.Major++
+		release.Minor = 0
+		release.Patch = 0
+		viper.Set("release", release.String())
+	}
+
+	if phase == "minor" || phase == "release" || phase == "major" {
 		release.PatchNumber = 0
 		viper.Set("alpha", 0)
 		viper.Set("beta", 0)
@@ -83,6 +90,6 @@ func (u *UpVersionCommand) Init() {
 		Example: "semver up alpha",
 		RunE:    u.Execute,
 		Args:    cobra.ExactValidArgs(1),
-		ValidArgs: []string{"alpha", "beta", "rc", "release", "minor"},
+		ValidArgs: []string{"alpha", "beta", "rc", "release", "minor", "major"},
 	}
 }

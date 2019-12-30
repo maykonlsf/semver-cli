@@ -28,8 +28,8 @@ This command will start the versioning based on release version v1.0.0. If you w
 ```sh
 semver init  \
     --release [base release version] \
-    --alpha [curent alpha number] 
-    --beta [current beta number] 
-    --rc [current release candiate number] \
+    [ --alpha [curent alpha number] ] \
+    [ --beta [current beta number] ] \
+    [ --rc [current release candiate number] ] \
     [--force] # to override an already initialized semver in the current directory.
 ```

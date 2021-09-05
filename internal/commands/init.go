@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"os"
+
 	"github.com/maykonlf/semver-cli/internal/entities"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -34,10 +36,15 @@ func (i *InitCommand) Execute(cmd *cobra.Command, args []string) error {
 }
 
 func (i *InitCommand) Handle() error {
-	if i.isForced {
+	if i.configExists() && i.isForced {
 		return viper.WriteConfig()
 	}
 	return viper.SafeWriteConfig()
+}
+
+func (i *InitCommand) configExists() bool {
+	_, err := os.Stat(".semver.yaml")
+	return err == nil
 }
 
 func (i *InitCommand) Init() {

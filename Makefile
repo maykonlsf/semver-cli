@@ -27,8 +27,28 @@ test: fmtcheck
 	@sh -c "go test ./... -timeout=2m -parallel=4"
 
 build:
-	CGO_ENABLED=0
-	GOOS=linux
-	@go build -o semver ./cmd/semver
+	@go build -o ./semver ./cmd/semver
 
-.PHONY: default test cover fmt fmtcheck lint
+build-linux-amd64:
+	@mkdir -p ./dist/linux-amd64
+	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./dist/linux-amd64/semver ./cmd/semver
+	@echo "./dist/linux-amd64/semver (linux/amd64)"
+
+build-windows-amd64:
+	@mkdir -p ./dist/windows-amd64
+	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ./dist/windows-amd64/semver.exe ./cmd/semver
+	@echo "./dist/windows-amd64/semver.exe (windows/amd64)"
+
+build-macos-arm64:
+	@mkdir -p ./dist/macos-arm64
+	@CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o ./dist/macos-arm64/semver ./cmd/semver
+	@echo "./dist/darwin-arm64/semver (darwin/arm64 - MacOS M1)"
+
+build-macos-amd64:
+	@mkdir -p ./dist/macos-amd64
+	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ./dist/macos-amd64/semver ./cmd/semver
+	@echo "./dist/darwin-amd64/semver (darwin/amd64 - MacOS Intel)"
+
+build-all: build build-linux-amd64 build-windows-amd64 build-macos-arm64 build-macos-amd64
+
+.PHONY: default test cover fmt fmtcheck lint build

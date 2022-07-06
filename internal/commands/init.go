@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/maykonlf/semver-cli/internal/entities"
@@ -24,6 +25,7 @@ func NewInitCommand() InitCommandI {
 type InitCommand struct {
 	isForced       bool
 	initialRelease entities.Version
+	commitHash     entities.CommitHash
 	cmd            *cobra.Command
 }
 
@@ -49,6 +51,9 @@ func (i *InitCommand) configExists() bool {
 
 func (i *InitCommand) Init() {
 	i.cmd = &cobra.Command{
+		PreRun: func(cmd *cobra.Command, args []string){
+			_ = viper.BindPFlag("commit-hash", i.cmd.PersistentFlags().Lookup("commit-hash"))
+		},
 		Use:     "init",
 		Short:   "Initialize semver config",
 		Long:    "Initialize required semver config file",
@@ -60,12 +65,14 @@ func (i *InitCommand) Init() {
 	i.cmd.PersistentFlags().Int("beta", 0, "current beta version number")
 	i.cmd.PersistentFlags().Int("rc", 0, "current rc version number")
 	i.cmd.PersistentFlags().Var(&i.initialRelease, "release", "release version")
+	i.cmd.PersistentFlags().Var(&i.commitHash, "commit-hash", "Supply a commit hash for reference")
 	i.cmd.Flags().BoolVar(&i.isForced, "force", false, "force recreate config file")
 
 	_ = viper.BindPFlag("alpha", i.cmd.PersistentFlags().Lookup("alpha"))
 	_ = viper.BindPFlag("beta", i.cmd.PersistentFlags().Lookup("beta"))
 	_ = viper.BindPFlag("rc", i.cmd.PersistentFlags().Lookup("rc"))
 	_ = viper.BindPFlag("release", i.cmd.PersistentFlags().Lookup("release"))
+	fmt.Println(i.commitHash)
 	viper.SetDefault("alpha", 0)
 	viper.SetDefault("beta", 0)
 	viper.SetDefault("rc", 0)

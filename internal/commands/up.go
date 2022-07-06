@@ -23,6 +23,7 @@ func NewUpVersionCommand() UpVersionCommandI {
 
 type UpVersionCommand struct {
 	cmd *cobra.Command
+	commitHash     entities.CommitHash
 }
 
 func (u *UpVersionCommand) Handle(release *entities.Version, phase string) error {
@@ -84,6 +85,9 @@ func (u *UpVersionCommand) Cmd() *cobra.Command {
 
 func (u *UpVersionCommand) Init() {
 	u.cmd = &cobra.Command{
+		PreRun: func(cmd *cobra.Command, args []string){
+			_ = viper.BindPFlag("commit-hash", u.cmd.PersistentFlags().Lookup("commit-hash"))
+		},
 		Use:       "up",
 		Short:     "Increase current version",
 		Long:      "Increase the current version based on the give phase (release, rc, beta, alpha)",
@@ -92,4 +96,7 @@ func (u *UpVersionCommand) Init() {
 		Args:      cobra.ExactValidArgs(1),
 		ValidArgs: []string{"alpha", "beta", "rc", "release", "minor", "major"},
 	}
+
+	u.cmd.PersistentFlags().Var(&u.commitHash, "commit-hash", "Supply a commit hash for reference")
+
 }

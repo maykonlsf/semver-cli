@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/maykonlf/semver-cli/internal/entities"
@@ -72,7 +71,6 @@ func (i *InitCommand) Init() {
 	_ = viper.BindPFlag("beta", i.cmd.PersistentFlags().Lookup("beta"))
 	_ = viper.BindPFlag("rc", i.cmd.PersistentFlags().Lookup("rc"))
 	_ = viper.BindPFlag("release", i.cmd.PersistentFlags().Lookup("release"))
-	fmt.Println(i.commitHash)
 	viper.SetDefault("alpha", 0)
 	viper.SetDefault("beta", 0)
 	viper.SetDefault("rc", 0)

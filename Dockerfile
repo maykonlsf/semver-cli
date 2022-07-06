@@ -8,4 +8,4 @@ FROM alpine:3
 COPY --from=builder /build/semver /bin/
 COPY .bashrc /root/.bashrc
 RUN apk update && apk add --no-cache git bash openssh curl
-CMD ["./bash"]
+CMD ["bash"]

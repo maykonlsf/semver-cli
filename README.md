@@ -10,7 +10,7 @@ specification.
 If you already have golang installed you can install by running the command:
 
 ```sh
-go install github.com/maykonlf/semver-cli/cmd/semver@latest
+go install github.com/maykonlsf/semver-cli/cmd/semver@latest
 ```
 
 ### check install

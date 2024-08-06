@@ -1,4 +1,4 @@
-module github.com/maykonlf/semver-cli
+module github.com/maykonlsf/semver-cli
 
 go 1.17
 

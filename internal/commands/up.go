@@ -2,8 +2,8 @@ package commands
 
 import (
 	"fmt"
-	"github.com/maykonlf/semver-cli/internal/entities"
-	"github.com/maykonlf/semver-cli/internal/enum/phases"
+	"github.com/maykonlsf/semver-cli/internal/entities"
+	"github.com/maykonlsf/semver-cli/internal/enum/phases"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

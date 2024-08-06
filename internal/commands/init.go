@@ -3,7 +3,7 @@ package commands
 import (
 	"os"
 
-	"github.com/maykonlf/semver-cli/internal/entities"
+	"github.com/maykonlsf/semver-cli/internal/entities"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

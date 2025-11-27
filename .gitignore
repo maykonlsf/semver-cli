@@ -13,3 +13,4 @@
 .idea/
 semver
 bin/
+.DS_Store

@@ -47,8 +47,9 @@ changelog:
 homebrew_casks:
   - name: semver-cli
     repository:
-      owner: Homebrew
-      name: homebrew-cask
+      owner: maykonlsf
+      name: homebrew-semver-cli
+    directory: Casks
     url:
       verified: github.com/maykonlsf/semver-cli
     homepage: "https://github.com/maykonlsf/semver-cli"
@@ -60,7 +61,12 @@ homebrew_casks:
       post:
         install: |
           if OS.mac?
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/semver"]
+            system_command "/usr/bin/xattr",
+              args: [
+                "-dr",
+                "com.apple.quarantine", 
+                "#{staged_path}/semver",
+              ]
           end
 
 release:

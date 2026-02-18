@@ -13,6 +13,15 @@ If you already have golang installed you can install by running the command:
 go install github.com/maykonlsf/semver-cli/cmd/semver@latest
 ```
 
+#### Homebrew (macOS/Linux)
+
+You can also install via the Homebrew tap (`maykonlsf/homebrew-semver-cli`):
+
+```sh
+brew tap maykonlsf/semver-cli
+brew install --cask semver-cli
+```
+
 ### check install
 
 Check if the semver was instaled running the command:

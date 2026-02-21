@@ -57,6 +57,8 @@ homebrew_casks:
     license: "MIT"
     conflicts:
       - cask: semver
+    binaries:
+      - semver
     hooks:
       post:
         install: |
